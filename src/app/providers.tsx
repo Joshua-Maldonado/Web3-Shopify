@@ -15,15 +15,10 @@ const config = {
 const configWagmi = createConfig(config)
 
 export function Providers(props: { children: ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient())
 
   return (
-    <WagmiProvider config={configWagmi}>
-      <QueryClientProvider client={queryClient}>
-        <WalletProvider>
-         {props.children}
-        </WalletProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <WalletProvider>
+      {props.children}
+    </WalletProvider>
   )
 }

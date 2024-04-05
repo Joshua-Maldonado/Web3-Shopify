@@ -8,7 +8,7 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { fetchSigner } from '@wagmi/core'
 //import { useAccount } from 'wagmi'
 import { useAuth } from "@opensea/wallet"
-import { encodeAbiParameters, toBytes } from 'viem'
+import { custom, encodeFunctionData, toBytes } from 'viem'
 //import { numberToBytes } from 'viem'
 //import { stringToBytes } from 'viem'
 import { getWalletClient } from '@wagmi/core'
@@ -397,39 +397,38 @@ class ProductFormBurn extends React.Component {
            var sig = ethers.utils.formatBytes32String("");
             var redemptionHash = ethers.utils.hexZeroPad(ethers.utils.hexlify(0), 32);
             console.log(sig,redemptionHash);
-            const encodedData = encodeAbiParameters(
-                [
-                  { name: 'campaignId', type: 'uint' },
-                  { name: 'requirementsIndex', type: 'uint' },
-                  { name: 'redemptionHash', type: 'bytes32' },
-                  { name: 'traitRedemptionTokenIds', type: 'uint256[]' },
-                  { name: 'salt', type: 'uint256' },
-                  { name: 'signature', type: 'bytes' },
-                ],
-                [3, 0, redemptionHash, [],0,sig]
+            const encodedData = encodeFunctionData({
+                functionName: "burn",
+                abi:customData,
+                args: ["0xE4e229f2ED1a937307C5613c7Ed87ABf7255cE4b", 2, 1]
+                }
               )
               console.log(encodedData);
 
                  try{
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    const contract = new ethers.Contract("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7",customData,provider);
-                  contract.burn(this.props.wallet,1,1).then(async (res) => {
-                        this.props.burning()
-                        const receipt = await res.wait();
-                        if(receipt.status == 1){
-                            const sendRes = await this.sendOrder();
-                            if(sendRes.jsonData.success == true){this.props.success()}
-                            else{this.props.error()}
-                        }
-                        else {
-                            this.props.error()
-                        }
+                    console.log({ client: this.props.sendTransaction })
+                    const hash = await this.props.sendTransaction({
+                        data: encodedData,
+                        to: "0xb15cb2c66a4b9a7640bbfc803993d7acbeb879c7",
+                    })
+                    console.log({ hash })
+                //   contract.burn(this.props.wallet,1,1).then(async (res) => {
+                //         this.props.burning()
+                //         const receipt = await res.wait();
+                //         if(receipt.status == 1){
+                //             const sendRes = await this.sendOrder();
+                //             if(sendRes.jsonData.success == true){this.props.success()}
+                //             else{this.props.error()}
+                //         }
+                //         else {
+                //             this.props.error()
+                //         }
                         
-                      }).catch((err) => {
-                                console.log('Error:', err);
-                                this.setState({['button_status']: ''});
+                //       }).catch((err) => {
+                //                 console.log('Error:', err);
+                //                 this.setState({['button_status']: ''});
                                 
-                    });
+                //     });
                     
                       
                     }
