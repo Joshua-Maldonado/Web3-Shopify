@@ -24,20 +24,18 @@ export default function Account() {
 
    
   const { address } = useAccount();
-  const { connector: activeConnector } = useAccount()
+  const { connector } = useAccount()
 
-  
   console.log(pendingConnector)
  
+  const activeAddress = user.addresses[0]
   useEffect(() => {
-    const handleConnectorUpdate = ({account, chain}) => {
-        if (account) {
-          console.log('new account', account)
-          setLogged(account)
-          home();
-        } else if (chain) {
-          console.log('new chain', chain)
-        }
+      if (activeAddress) {
+        console.log('new account', activeAddress)
+        setLogged(activeAddress)
+        home();
+      } else if (chain) {
+        console.log('new chain', chain)
       }
   
    
@@ -62,7 +60,7 @@ export default function Account() {
       loadData();
       
   
-    return () => { }})
+    return () => { }}, [activeAddress])
 
   
     function ProductPage1toBurn(tokenid){
