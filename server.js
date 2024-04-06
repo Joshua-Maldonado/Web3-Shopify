@@ -28,7 +28,7 @@ app.prepare().then(async() => {
 
   
 
-  var allowedOrigins = ['https://tdm-gv-burn-2f1835c38fc9.herokuapp.com','http://localhost:3000'];
+  var allowedOrigins = ['https://coachella-2024-vip-747cc0cc57da.herokuapp.com/','http://localhost:3000'];
   server.use(cors({
     origin: function(origin, callback){
       // allow requests with no origin 
@@ -44,7 +44,7 @@ app.prepare().then(async() => {
   }));
   
   var corsOptions = {
-    origin: 'https://tdm-gv-burn-2f1835c38fc9.herokuapp.com',
+    origin: 'https://coachella-2024-vip-747cc0cc57da.herokuapp.com/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 

@@ -16,7 +16,7 @@ export default function ProductPage3Burn(props) {
   },[
 
   ])
-  //console.log({hash, isLoading, status, isSuccess})
+  console.log({hash, isLoading, status, isSuccess})
 
   
     function toggleSizeChart() {

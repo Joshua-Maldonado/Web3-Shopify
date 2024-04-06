@@ -356,29 +356,15 @@ class ProductFormBurn extends React.Component {
                              if(sendRes.jsonData.success == true){this.props.success()}
                              else{this.props.error()}
                     }
-                    
-
-
-                    
-                      
                     }
                     catch(e){
                        //const errorReason = (e as TransactionError)?.reason;
                         console.log("Execution reverted with reason:", e);
                         console.log(e.details);
                         console.log('Error:', e);
-                        if(e.details.includes("User denied transaction")){
-                            this.setState({['button_status']: ''});
-                        }
-                        else{
-                            this.props.error()
-                        }
-
-                                
-                        
-                    }
-    
-            
+                        this.setState({['button_status']: ''});
+                        //this.props.error()
+                    }   
         }
         
 
