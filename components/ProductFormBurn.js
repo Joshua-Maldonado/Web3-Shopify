@@ -60,11 +60,14 @@ class ProductFormBurn extends React.Component {
     
       initialState() {
         var productTitle="";
+        var imgSrc="";
         if(this.props.tokenid==1){
             productTitle = "2024 Weekend 1 VIP Festival Pass + Oasis Lounge Access";
+            imgSrc="Coachella_W1_Still.png";
         }
         else if(this.props.tokenid==2){
             productTitle = "2024 Weekend 2 VIP Festival Pass + Oasis Lounge Access";
+            imgSrc="Coachella_W2_Still.png";
         }
         return {
             contract: '',
@@ -90,6 +93,7 @@ class ProductFormBurn extends React.Component {
             selected: '',
             shipping: '',
             shippingText: 'Select Rate',
+            img: imgSrc,
             shippingButton: true,
             hidden: false,
             dis_status: true,
@@ -386,7 +390,7 @@ class ProductFormBurn extends React.Component {
             <div className="product-container burn-containe third-product">
                 <div className="split-parent">
                 <div className="split-child">
-                <img src="coachella-_0003_Coachella2019_W2_315155.jpg"  />
+                <img src={this.state.img}  />
                 </div>
                 <div className="split-child">
                     <h1  className="heading mobile product title-product third">{ this.state.productT }</h1>

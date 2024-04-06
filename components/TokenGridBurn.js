@@ -37,8 +37,13 @@ async function GetTokenBurnData(productPage) {
             let customName = tokenName.id;
             let type = "";
             
-             
-              image.src = "Charles Reagan Hackleman_Coachella_D004165.jpg";
+             if(customName==1){
+                image.src = "Coachella_W1_Still.png";
+             }
+             else if(customName==2){
+                image.src = "Coachella_W2_Still.png";
+             }
+              
             
             
 
