@@ -18,7 +18,31 @@ function Page() {
   //logout()
 
   if (!ready) {
-       return <><div><h1>MOUNTING</h1></div></>
+       return <><div className='body-section'>
+                    <div className='page-header'>
+                        <div className='header-content'>
+                        <div className='logo-content'>
+                            <img src="coachella-logo.png" className='logo-img'/> 
+                        </div>
+                        </div>
+                    </div>
+                    <div className='main-content'>
+                        <div className='index-section'>
+                        <div className="product-container burn-container">
+                            <div className="split-parent">
+                                
+                                
+                                <h2 className='loading-text h2'>Loading...</h2>
+                                
+                            </div> 
+                        </div>
+                        
+                        </div>
+                    </div>
+                    <div className='footer'>
+                        <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
+                    </div>
+                    </div></>
      }
   if (!user) {
     return <>
@@ -40,7 +64,7 @@ function Page() {
                 <div className="split-child connect-pg">
                   <h2 className='heading-text h2'>Connect Wallet</h2>
                   <p className='paragraph welcome'>Only owners of a Top Drawer Merch Club NFT are allowed to access the Top Drawer Shop. Please connect your wallet now to verify NFT owenership.</p>
-                  <button className="cta button" onClick={login}>Login</button>
+                  <button className="cta button login-button" onClick={login}>Login</button>
                 </div>
             </div> 
         </div>
@@ -68,7 +92,7 @@ function Page() {
           <div className='logo-content'>
             <img src="coachella-logo.png" className='logo-img'/>
           </div>
-          <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout Here</button></div>
+          <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout</button></div>
         </div>
       </div>
       <div className='main-content'>

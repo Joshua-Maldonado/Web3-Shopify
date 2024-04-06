@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react'
 
 
 export default function ProductPage3Burn(props) {  
-  const { data: hash, sendTransactionAsync: sendTransaction, isPending } = useSendTransaction() 
+  const { data: hash, sendTransactionAsync: sendTransaction, isLoading, isSuccess, status } = useSendTransaction() 
   const {switchChainAsync} = useSwitchChain()
   const chainId = useChainId()
   console.log({ chainId})
@@ -16,8 +16,9 @@ export default function ProductPage3Burn(props) {
   },[
 
   ])
-  console.log({hash, isPending})
+  //console.log({hash, isLoading, status, isSuccess})
 
+  
     function toggleSizeChart() {
         var target = document.getElementById("size-chart-target");
         //console.log("Target: "+target.classList.contains("hidden"));
@@ -49,10 +50,9 @@ export default function ProductPage3Burn(props) {
     <div  className="verified-parent">
      <div className="redirect-section">
      <div className="product-page-top">
-                    <h1 className="product-page-heading">In your bundle</h1>
-                    <h5>PRODUCT <span>3</span> OF <span>3</span></h5>
+                    
                 </div>
-        <ProductFormBurn  sendTransaction={sendTransaction} success={props.success} burning={props.burning} wallet={props.wallet} tokenid={props.tokenid} sizeChart={toggleSizeChart} connector={props.connector} error={props.error}></ProductFormBurn> 
+        <ProductFormBurn  sendTransaction={sendTransaction} success={props.success} burning={props.burning} wallet={props.wallet} tokenid={props.tokenid} sizeChart={toggleSizeChart} connector={props.connector} error={props.error} isSuccess={isSuccess} stats={status}></ProductFormBurn> 
 
          
         

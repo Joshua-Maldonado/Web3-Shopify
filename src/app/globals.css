@@ -22,6 +22,7 @@
 
   body {
     background-color: #f6f3e7;
+    min-height: 100vh;
 }
   
  
@@ -198,12 +199,13 @@ button:hover .Container--c12h69.primary {
 img.nft-image {
   width: auto;
   height: 350px;
+  max-width: none;
 }
 h3.nft-title {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 18px;
 }
 .buttonParent {
     display: flex;
@@ -236,6 +238,19 @@ p.paragraph.product-page {
       margin: auto;
       
   }
+  .loading-text {
+    text-align: center;
+    width: 100%;
+    font-size: 25px;
+    font-weight: 700;
+}
+button.cta.button.login-button {
+  margin-left: 0;
+}
+p.nft-quantity {
+  text-align: center;
+  font-size: 12px;
+}
   .split-parent {
     display: flex;
     flex-direction: row;
@@ -647,6 +662,7 @@ h1.heading.mobile.product.title-product {
   margin-bottom: 6px;
     font-size: 26px;
     line-height: 24px;
+    text-align: start;
 }
 .product-container.claim-container {
   border-bottom: none !important;

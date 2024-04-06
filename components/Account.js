@@ -83,7 +83,7 @@ export default function Account() {
       console.log("Page 2 Token ID Clicked: "+tokenid)
       setStatus(
         <div>
-          <ProductPage2Burn burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={user} connector={activeConnector} ></ProductPage2Burn>
+          <ProductPage2Burn burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={user} connector={activeAddress} ></ProductPage2Burn>
         </div>
       );
     }
@@ -133,7 +133,7 @@ function errorBurn () {
   function home() {
     setStatus(
       <div>
-                 <DisplayToBurn productPage={ProductPage1toBurn} error={errorFunction} account={ user } ></DisplayToBurn> 
+                 <DisplayToBurn productPage={ProductPage2toBurn} error={errorFunction} account={ user } ></DisplayToBurn> 
         </div>
     );
   }

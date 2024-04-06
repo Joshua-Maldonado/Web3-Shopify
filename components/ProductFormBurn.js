@@ -4,7 +4,7 @@ import { Loader } from "@googlemaps/js-api-loader"
 import customData from '../src/abi.json';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 //import addTransaction from '../api/addTransaction'
-//import sendNewOrder from '../api/sendNewOrder'
+import sendNewOrder from '../api/sendNewOrder'
 import { fetchSigner } from '@wagmi/core'
 //import { useAccount } from 'wagmi'
 import { useAuth } from "@opensea/wallet"
@@ -29,7 +29,7 @@ class ProductFormBurn extends React.Component {
         this.updateSubmit = this.updateSubmit.bind(this)
         this.triggerCounter = this.triggerCounter.bind(this)
         this.burnToken = this.burnToken.bind(this)
-        //this.sendOrder = this.sendOrder.bind(this)
+        this.sendOrder = this.sendOrder.bind(this)
         this.sdk = null
         this.contract = null
         this.address = null
@@ -39,14 +39,9 @@ class ProductFormBurn extends React.Component {
       
     
        async componentDidMount() {
-        
-        // const result = getWalletClient({
-        //     account: '0x2231B0188dad7349695DC84B8FE5D1bee5E79cFE', 
-        //   })
-        
-        
-        // console.log("TOKEN ID CLICKED HERE: " + "state is: "+result)
-        // console.log
+
+        console.log(this.props.tokenid)
+
 
         const loader = new Loader({
             apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS,
@@ -60,37 +55,17 @@ class ProductFormBurn extends React.Component {
             this.autocomplete = places;
           });
        
-        //   const sdk = new ThirdwebSDK("avalanche-fuji", {
-        //     secretKey: process.env.SECRET_KEY,
-        //   });
-        //   this.sdk = sdk;
-
-
-
-        //   const contract = await sdk.getContract("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", customData);
-        //   this.contract = contract;
-        //   //const signer = sdk.getSigner();
-        //   //console.log(signer)
-        //   //this.address = signer;
-
-        //   //const signer = await fetchSigner()
-        //   console.log("TEST");
-        //  // console.log(signer);
-        //   console.log(this.props.connector);
-          
-
-        //   //const provider = new ethers.providers.Web3Provider(window.ethereum);
-        //         //const signer2 = provider;
-
-        //             //console.log(this.contract, signer2);
-        //             const sdk2 = ThirdwebSDK.fromSigner(this.props.connector , "avalanche-fuji");
-        //             const contract2 = await sdk2.getContract("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", customData);
-        //             this.contract2 = contract2;
-        //             console.log("END");
-        //             console.log(sdk2.wallet);
+        
       }
     
       initialState() {
+        var productTitle="";
+        if(this.props.tokenid==1){
+            productTitle = "2024 Weekend 1 VIP Festival Pass + Oasis Lounge Access";
+        }
+        else if(this.props.tokenid==2){
+            productTitle = "2024 Weekend 2 VIP Festival Pass + Oasis Lounge Access";
+        }
         return {
             contract: '',
             token_id: this.props.tokenid,
@@ -123,6 +98,7 @@ class ProductFormBurn extends React.Component {
             large: true,
             xlarge: true,
             xxlarge: true,
+            productT: productTitle,
             wallet: this.props.wallet,
             variant_ids:{
                   small: "44297250767140",
@@ -153,53 +129,8 @@ class ProductFormBurn extends React.Component {
       }
 
 
-    //   handleSubmit = async event => {
-    //     event.preventDefault();
-    //     try{
-    //       const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //       const signer = provider.getSigner();
-    //       await signer.getAddress().then(async (res) => {
-    //         console.log("RESPONSE: "+ res + " CONNECTED: "+ this.props.wallet );
-    //         if(res === this.props.wallet){
-    //           try{
-    //           await signer.signMessage("Confirm merch claim on 1 Top Drawer Merch Club Hoodie").then((res) => {
-    //             console.log("SUCCESS: "+res);
-    //             //var url = "https://wagmi-united-shop.myshopify.com/cart/"+ this.state.selected +":1?note="+this.state.token_id;
-                
-                    
-    //                 //console.log("URL: "+ url);
-    //                 //window.location.href = url;
-            
-    //                 }).catch((err) => {
-    //                         console.log('Error:', err);
-                            
-    //               });
-    //             }
-    //             catch(err){
-    //               console.log(err);
-    //             }
-    //         }
-    //         else{
-    //           this.props.error();
+  
 
-    //         }
-    //       })
-                
-    //                   //var url = "https://wagmi-united-shop.myshopify.com/cart/"+ this.state.selected +":1?note="+this.state.token_id;
-
-                    
-    //                 //console.log("URL: "+ url);
-    //                 //window.location.href = url;
-            
-                    
-            
-        
-    //     }
-    //     catch(err){
-    //       console.log(err);
-    //     }
-
-    // }
         updateSubmit = () => {
             let btnStatus = true;
     
@@ -208,8 +139,7 @@ class ProductFormBurn extends React.Component {
                 var max = 100;
                 var rand =  min + (Math.random() * (max-min));
                 this.setState({['update_counter']: rand});
-                //this.triggerCounter()
-                //console.log(JSON.stringify(this.state))
+
                 
                 btnStatus = true
             
@@ -309,19 +239,7 @@ class ProductFormBurn extends React.Component {
        var rand =  min + (Math.random() * (max-min));
        this.setState({['update_counter']: rand})
          this.triggerCounter()
-        //this.fireEvent(address[5].short_name)
-    
-        // let placeObj = {
-        //       'street_address': `${address[0].long_name} ${address[1].long_name}`,
-        //       'city': address[3].long_name,
-        //       'state': address[5].short_name,
-        //       'country': address[6].short_name,
-        //       'zip_code': address[7].short_name,
-        //       'googleMapLink': addressObject.url
-        //     }
-        // this.refreshForm(placeObj)
-       
-        //console.log("THIS state: "+JSON.stringify(this.state));
+
       }
       else if(address.length == 7){
         this.setState({
@@ -366,32 +284,43 @@ class ProductFormBurn extends React.Component {
             //this.props.buttonFunction();
         }
 
-        // sendOrder = async () => {
-        //     const order = {  
-        //         "variant_id":this.state.selected,
-        //         "product_id":"8276151009554",
-        //         "name":"TDM Hoodie",
-        //         "quantity":1,
-        //         "first_name":this.state.first_name,
-        //         "last_name":this.state.last_name,
-        //         "email":this.state.email,
-        //         "address1":this.state.street_address,
-        //         "address2":this.state.apartment,
-        //         "phone":this.state.phone,
-        //         "state":this.state.state,
-        //         "city":this.state.city,
-        //         "country":this.state.country,
-        //         "zip":this.state.postcode,
-        //         "tokenID":this.props.tokenid,
-        //         "walletAddress":this.props.address,
-        //         "mapsLink":this.state.googleMapLink, 
-        //         "wallet_address": this.props.wallet,
-        //         "token_id":this.state.token_id
-        //     }
-        //     const response = await sendNewOrder(order);
-        //     console.log("SEND FIRST RESPONSE: ",response)
-        //     return(response)
-        // }
+        sendOrder = async () => {
+            var product = "";
+            var title ="";
+            if(this.props.tokenid==2){
+                product="7324871622708";
+                title="2024 Weekend 2 VIP Festival Pass + Oasis Lounge Access";
+            }
+            else if(this.props.tokenid == 1){
+                product="7324871360564";
+                title="2024 Weekend 1 VIP Festival Pass + Oasis Lounge Access";
+            }
+
+            const order = {  
+                "variant_id":this.state.selected,
+                "product_id":product,
+                "name":title,
+                "quantity":1,
+                "first_name":this.state.first_name,
+                "last_name":this.state.last_name,
+                "email":this.state.email,
+                "address1":this.state.street_address,
+                "address2":this.state.apartment,
+                "phone":this.state.phone,
+                "state":this.state.state,
+                "city":this.state.city,
+                "country":this.state.country,
+                "zip":this.state.postcode,
+                "tokenID":this.props.tokenid,
+                "walletAddress":this.props.address,
+                "mapsLink":this.state.googleMapLink, 
+                "wallet_address": this.props.wallet,
+                "token_id":this.props.tokenid
+            }
+            const response = await sendNewOrder(order);
+            console.log("SEND FIRST RESPONSE: ",response)
+            return(response)
+        }
 
         burnToken = async () => {
            var sig = ethers.utils.formatBytes32String("");
@@ -400,43 +329,48 @@ class ProductFormBurn extends React.Component {
             const encodedData = encodeFunctionData({
                 functionName: "burn",
                 abi:customData,
-                args: ["0xE4e229f2ED1a937307C5613c7Ed87ABf7255cE4b", 2, 1]
+                args: [this.props.wallet.addresses[0], this.props.tokenid, 1]
                 }
               )
               console.log(encodedData);
-
+              console.log(this.props.stats)
+              console.log(this.props.isSuccess)
                  try{
-                    console.log({ client: this.props.sendTransaction })
+                    //console.log({ client: this.props.sendTransaction })
+                    console.log(this.props.stats)
+                    console.log(this.props.isSuccess)
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
                         to: "0xb15cb2c66a4b9a7640bbfc803993d7acbeb879c7",
                     })
+                    console.log( this.props.stats )
+                    console.log(this.props.isSuccess)
                     console.log({ hash })
-                //   contract.burn(this.props.wallet,1,1).then(async (res) => {
-                //         this.props.burning()
-                //         const receipt = await res.wait();
-                //         if(receipt.status == 1){
-                //             const sendRes = await this.sendOrder();
-                //             if(sendRes.jsonData.success == true){this.props.success()}
-                //             else{this.props.error()}
-                //         }
-                //         else {
-                //             this.props.error()
-                //         }
+                    if(hash){
                         
-                //       }).catch((err) => {
-                //                 console.log('Error:', err);
-                //                 this.setState({['button_status']: ''});
-                                
-                //     });
+                         const sendRes = await this.sendOrder();
+                             if(sendRes.jsonData.success == true){this.props.success()}
+                             else{this.props.error()}
+                    }
+                    
+
+
                     
                       
                     }
                     catch(e){
                        //const errorReason = (e as TransactionError)?.reason;
                         console.log("Execution reverted with reason:", e);
+                        console.log(e.details);
                         console.log('Error:', e);
-                                this.setState({['button_status']: ''});
+                        if(e.details.includes("User denied transaction")){
+                            this.setState({['button_status']: ''});
+                        }
+                        else{
+                            this.props.error()
+                        }
+
+                                
                         
                     }
     
@@ -455,10 +389,9 @@ class ProductFormBurn extends React.Component {
                 <img src="coachella-_0003_Coachella2019_W2_315155.jpg"  />
                 </div>
                 <div className="split-child">
-                    <h1  className="heading mobile product title-product third">Coachella 2024 VIP Opensea Zine</h1>
+                    <h1  className="heading mobile product title-product third">{ this.state.productT }</h1>
                     <h5 className='title-subheading'>BURN TO REDEEM</h5>
-                    <p className="sub-heading">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt sagittis eros. Quisque quis euismod lorem. Etiam sodales ac felis id interdum.</p>
-                    <p className="sub-heading">• Lorem ipsum dolor sit amet<br></br>• Lorem ipsum dolor sit amet<br></br>• Lorem ipsum dolor sit amet<br></br>• Lorem ipsum dolor sit amet</p>
+                    <p className="sub-heading">The VIP Pass + Oasis Lounge Keepsake by Coachella is an NFT that grants holders one VIP ticket to the 2024 Coachella Valley Music and Arts Festival as well as access to the Oasis Lounge — an exclusive lounge + bar inside the festival grounds’ VIP section. Inside, holders will find a serene lounge area with complimentary food and drinks, air-conditioning, and access to exclusive art experiences and merchandise.</p>
 
                 </div>
                 </div> 

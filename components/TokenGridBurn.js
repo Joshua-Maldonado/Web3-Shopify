@@ -47,8 +47,12 @@ async function GetTokenBurnData(productPage) {
             let title = document.createElement("h3");
             title.classList.add('nft-title');
             
-            title.innerText = "TDM GV Token #"+customName;
+            title.innerText = "Coachella 2024 Weekend "+customName+" VIP";
             
+            let quantity = document.createElement("p");
+            quantity.classList.add('nft-quantity');
+            quantity.innerText = "Quantity Owned: "+nft.qualtity;
+
             let buttonParent = document.createElement("div");
             buttonParent.classList.add('buttonParent');
             let button = document.createElement("button");
@@ -60,8 +64,8 @@ async function GetTokenBurnData(productPage) {
 
             button.innerText = "BEGIN BURN"
             button.addEventListener("click", function () {
-              console.log("clicked this button"+ nft.tokenId)
-              productPage(nft.tokenId)
+              console.log("clicked this button"+ nft.id)
+              productPage(nft.id)
             });
 
             
@@ -70,6 +74,7 @@ async function GetTokenBurnData(productPage) {
             buttonParent.appendChild(button);
             child.appendChild(imageParent);
             child.appendChild(title);
+            child.appendChild(quantity);
             
             child.appendChild(buttonParent);
             childSuper.appendChild(child)
@@ -90,7 +95,7 @@ async function GetTokenBurnData(productPage) {
           const headingParagraph = document.createElement("p");
           headingParagraph.classList.add('paragraph');
           headingParagraph.classList.add('section-paragraph');
-          headingParagraph.innerText = "Select a claimable token below to begin the claim process for your free Coachella x Opensea VIP Merch Bundle."
+          headingParagraph.innerText = "Select a claimable token below to begin the claim process for your free Coachella 2024 VIP Festival Pass + Oasis Lounge Access."
           sectionHeadingParent.appendChild(headingText);
           sectionHeadingParent.appendChild(headingParagraph);
 
