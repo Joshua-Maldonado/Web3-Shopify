@@ -340,15 +340,12 @@ class ProductFormBurn extends React.Component {
               console.log(this.props.stats)
               console.log(this.props.isSuccess)
                  try{
-                    //console.log({ client: this.props.sendTransaction })
-                    console.log(this.props.stats)
-                    console.log(this.props.isSuccess)
+
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
                         to: "0xb15cb2c66a4b9a7640bbfc803993d7acbeb879c7",
                     })
-                    console.log( this.props.stats )
-                    console.log(this.props.isSuccess)
+
                     console.log({ hash })
                     if(hash){
                         
