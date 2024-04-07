@@ -716,6 +716,42 @@ h1.product-page-heading {
   overflow: hidden;
 }
 @media screen and (max-width: 769px) {
+  div#home-button {
+    position: absolute;
+    background-color: #ffa553;
+    top: 0;
+    left: 15px;
+    height: 30px;
+    width: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 0.5rem 0.6rem 0.5rem;
+}
+img.logo-img {
+  max-width: 90px;
+}
+p.footer-text {
+  font-weight: 500;
+  font-size: .6rem !important;
+}
+button.cta.button {
+  color: #000;
+  border: none;
+  margin-top: 0px;
+  font-size: 8px;
+  line-height: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  background-color: #ffa552;
+  border-radius: 5px;
+  align-self: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.6rem 0.7rem 0.6rem;
+  cursor: pointer;
+}
   .demo-selector {
       flex-wrap: wrap;
   }
