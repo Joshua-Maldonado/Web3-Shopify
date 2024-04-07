@@ -734,6 +734,12 @@ p.footer-text {
   font-weight: 500;
   font-size: .6rem !important;
 }
+.wallet-button {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  height: 100%;
+}
 button.cta.button {
   color: #000;
   border: none;
