@@ -715,6 +715,28 @@ h1.product-page-heading {
   max-height: 475px;
   overflow: hidden;
 }
+h2.heading-text.h2.section-heading-text.redeemed-heading {
+  margin-top: 6rem;
+}
+h2.nft-pre-title {
+  text-align: center;
+  font-size: 1.7rem;
+  margin-top: 10px;
+}
+h3.nft-title.redeemed-title {
+  margin-top: 0;
+}
+.nfts-parent.redeemed-parent {
+  width: 100%;
+  margin-bottom: 60px;
+}
+h2.heading-text.h2.section-heading-text.redeemed-heading {
+  padding-top: 3rem;
+  border-top: 1px solid #00000024;
+  margin-top: 3rem;
+  width: 100%;
+}
+
 @media screen and (max-width: 769px) {
   div#home-button {
     position: absolute;
@@ -726,6 +748,14 @@ h1.product-page-heading {
     cursor: pointer;
     border-radius: 5px;
     padding: 0.5rem 0.6rem 0.5rem;
+}
+h2.heading-text.h2.section-heading-text.redeemed-heading {
+  padding-top: 3rem;
+  border-top: 1px solid #00000024;
+  margin-top: 2rem;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 img.logo-img {
   max-width: 90px;
@@ -740,10 +770,21 @@ p.footer-text {
   right: 15px;
   height: 100%;
 }
+h3.nft-title {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 15px;
+}
+h2.nft-pre-title {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
 button.cta.button {
   color: #000;
   border: none;
-  margin-top: 0px;
+  margin-top: 10px;
   font-size: 8px;
   line-height: 11px;
   font-weight: 700;
@@ -757,6 +798,10 @@ button.cta.button {
   margin-right: auto;
   padding: 0.6rem 0.7rem 0.6rem;
   cursor: pointer;
+}
+.main-content {
+  width: 95%;
+  margin: auto;
 }
   .demo-selector {
       flex-wrap: wrap;
@@ -775,6 +820,9 @@ button.cta.button {
 .ResetContainer--f8irz5 {
   height: 100%;
   display: block !important;
+}
+.wallet-button button.cta.button {
+  margin-top: 0;
 }
 .nft-superchild {
   width: 50%;

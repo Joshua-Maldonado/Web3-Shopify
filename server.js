@@ -19,6 +19,9 @@ const sdk = new ThirdwebSDK("avalanche-fuji", {
 const contract = await sdk.getContractFromAbi("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", ABI);
   console.log(contract);
 
+const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+console.log(redeemedContract);
+
 
 app.prepare().then(async() => {
   
@@ -63,23 +66,37 @@ app.prepare().then(async() => {
     const tokens = [];
     const tokens1 = (await contract.erc1155.balanceOf(req.params.address,1)).toNumber();
     const tokens2 = (await contract.erc1155.balanceOf(req.params.address,2)).toNumber();
-    
+
+    const redeemed = [];
+    const redeemed1 = (await redeemedContract.erc1155.balanceOf(req.params.address,1)).toNumber();
+    const redeemed2 = (await redeemedContract.erc1155.balanceOf(req.params.address,2)).toNumber();
+
+
     if(tokens1 > 0){
       tokens.push({contract: "0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7",id: 1, qualtity: tokens1});
     }
     if(tokens2 > 0){
       tokens.push({contract: "0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7",id: 2, qualtity: tokens2});
+    } 
+    if(redeemed1 > 0){
+      redeemed.push({contract: "0xb241673eb04739d7E42c42a6312897F7d6694817",id: 1, qualtity: redeemed1});
+    }
+    if(redeemed2 > 0){
+      redeemed.push({contract: "0xb241673eb04739d7E42c42a6312897F7d6694817",id: 2, qualtity: redeemed2});
     }
 
     console.log(tokens);
+    console.log(redeemed);
+
+    const frontRes = {tokenData: tokens, redeemedData: redeemed}
 
     
         
         
-        console.log("DT RESPONSE: " + JSON.stringify(tokens))
+        console.log("Tokens: " + JSON.stringify(tokens) + " Redeemed: "+ JSON.stringify(redeemed));
+        console.log(frontRes); 
         
-          res.status(200).send(tokens)
-      
+        res.status(200).send(frontRes); 
     
   }
   else {
@@ -87,8 +104,6 @@ app.prepare().then(async() => {
   }
 
   })
-
-
 
 server.post('/neworder', jsonParser, async function(req, res) {
   var sendContent = { "content": req.body, "code": 9991247644};
