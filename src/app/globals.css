@@ -19,7 +19,9 @@
     color: #181818;
   }
 }
-
+:root {
+  background: #f6f3e7 !important;
+}
   body {
     background-color: #f6f3e7;
     min-height: 100vh;
@@ -85,6 +87,7 @@ p.paragraph.welcome {
 .footer {
     display: flex;
     justify-content: center;
+    padding-bottom: 30px;
 }
 .wallet-button {
     position: absolute;
@@ -735,6 +738,9 @@ h2.heading-text.h2.section-heading-text.redeemed-heading {
   border-top: 1px solid #00000024;
   margin-top: 3rem;
   width: 100%;
+}
+.wallet-button button.cta.button {
+  margin-top: 0;
 }
 
 @media screen and (max-width: 769px) {

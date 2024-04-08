@@ -131,6 +131,10 @@ function errorBurn () {
   
 
   function home() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     setStatus(
       <div>
                  <DisplayToBurn productPage={ProductPage2toBurn} error={errorFunction} account={ user } ></DisplayToBurn> 
