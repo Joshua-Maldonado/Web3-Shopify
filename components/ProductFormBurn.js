@@ -2,13 +2,14 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { Loader } from "@googlemaps/js-api-loader"
 import customData from '../src/abi.json';
+//import redeemAbi from '../src/redeemABI.json';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 //import addTransaction from '../api/addTransaction'
 import sendNewOrder from '../api/sendNewOrder'
 import { fetchSigner } from '@wagmi/core'
 //import { useAccount } from 'wagmi'
 import { useAuth } from "@opensea/wallet"
-import { custom, encodeFunctionData, toBytes } from 'viem'
+import { custom, encodeFunctionData, encodeAbiParameters, toBytes } from 'viem'
 //import { numberToBytes } from 'viem'
 //import { stringToBytes } from 'viem'
 import { getWalletClient } from '@wagmi/core'
@@ -330,12 +331,32 @@ class ProductFormBurn extends React.Component {
            var sig = ethers.utils.formatBytes32String("");
             var redemptionHash = ethers.utils.hexZeroPad(ethers.utils.hexlify(0), 32);
             console.log(sig,redemptionHash);
-            const encodedData = encodeFunctionData({
-                functionName: "burn",
-                abi:customData,
-                args: [this.props.wallet.addresses[0], this.props.tokenid, 1]
-                }
+            const encodedData2 = encodeAbiParameters(
+                [
+                  { name: 'campaignId', type: 'uint' },
+                  { name: 'requirementsIndex', type: 'uint' },
+                  { name: 'redemptionHash', type: 'bytes32' },
+                  { name: 'traitRedemptionTokenIds', type: 'uint256[]' },
+                  { name: 'salt', type: 'uint256' },
+                  { name: 'signature', type: 'bytes' },
+                ],
+                [this.props.tokenid, 0, redemptionHash, [],0,sig]
               )
+              console.log(encodedData2);
+
+            // const encodedData = encodeFunctionData({
+            //     functionName: "burn",
+            //     abi:customData,
+            //     args: [this.props.wallet.addresses[0], this.props.tokenid, 1]
+            //     }
+            //   )
+            
+            const encodedData = encodeFunctionData({
+                    functionName: "redeem",
+                    abi:customData,
+                    args: [[this.props.tokenid],this.props.wallet.addresses[0],encodedData2]
+                    }
+                  )
               console.log(encodedData);
               console.log(this.props.stats)
               console.log(this.props.isSuccess)
@@ -343,7 +364,7 @@ class ProductFormBurn extends React.Component {
 
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
-                        to: "0xb15cb2c66a4b9a7640bbfc803993d7acbeb879c7",
+                        to: "0xb241673eb04739d7E42c42a6312897F7d6694817",
                     })
 
                     console.log({ hash })
