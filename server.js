@@ -4,7 +4,9 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import next from 'next';
 import dotenv  from "dotenv";
-import ABI from "./src/abi.json" assert { type: "json" };
+//import ABI from "./src/abi.json" assert { type: "json" };
+import LiveABI from "./src/liveABI.json" assert { type: "json" };
+import RedeemABI from "./src/liveRedeemABI.json" assert { type: "json" };
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -13,15 +15,25 @@ const handle = app.getRequestHandler()
 
 dotenv.config();
 
-const sdk = new ThirdwebSDK("avalanche-fuji", {
+//////////////////
+// test net: avalanche-fuji
+
+const sdk = new ThirdwebSDK("Avalanche", {
   secretKey: process.env.SECRET_KEY,
 });
-const contract = await sdk.getContractFromAbi("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", ABI);
+/////////////////////////
+// Test contracts
+// const contract = await sdk.getContractFromAbi("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", ABI);
+//   console.log(contract);
+
+// const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+// console.log(redeemedContract);
+
+const contract = await sdk.getContractFromAbi("0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800", LiveABI);
   console.log(contract);
 
-const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+const redeemedContract = await sdk.getContractFromAbi("0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461", RedeemABI);
 console.log(redeemedContract);
-
 
 app.prepare().then(async() => {
   
@@ -73,16 +85,16 @@ app.prepare().then(async() => {
 
 
     if(tokens1 > 0){
-      tokens.push({contract: "0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7",id: 1, qualtity: tokens1});
+      tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 1, qualtity: tokens1});
     }
     if(tokens2 > 0){
-      tokens.push({contract: "0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7",id: 2, qualtity: tokens2});
+      tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 2, qualtity: tokens2});
     } 
     if(redeemed1 > 0){
-      redeemed.push({contract: "0xb241673eb04739d7E42c42a6312897F7d6694817",id: 1, qualtity: redeemed1});
+      redeemed.push({contract: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",id: 1, qualtity: redeemed1});
     }
     if(redeemed2 > 0){
-      redeemed.push({contract: "0xb241673eb04739d7E42c42a6312897F7d6694817",id: 2, qualtity: redeemed2});
+      redeemed.push({contract: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",id: 2, qualtity: redeemed2});
     }
 
     console.log(tokens);
