@@ -2,6 +2,7 @@ import React from 'react'
 import { ethers } from 'ethers'
 import { Loader } from "@googlemaps/js-api-loader"
 import customData from '../src/abi.json';
+import redeemedABI from '../src/liveRedeemABI.json';
 //import redeemAbi from '../src/redeemABI.json';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 //import addTransaction from '../api/addTransaction'
@@ -353,7 +354,7 @@ class ProductFormBurn extends React.Component {
             
             const encodedData = encodeFunctionData({
                     functionName: "redeem",
-                    abi:customData,
+                    abi:redeemedABI,
                     args: [[this.props.tokenid],this.props.wallet.addresses[0],encodedData2]
                     }
                   )
