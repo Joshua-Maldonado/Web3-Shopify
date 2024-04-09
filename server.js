@@ -43,7 +43,7 @@ app.prepare().then(async() => {
 
   
 
-  var allowedOrigins = ['https://coachella-2024-vip-747cc0cc57da.herokuapp.com','https://coachella-2024-vip-prod-e9adf7d2eacc.herokuapp.com','http://localhost:3000'];
+  var allowedOrigins = ['https://coachella-2024-vip-747cc0cc57da.herokuapp.com','https://coachella-redemption.opensea.io','http://coachella-redemption.opensea.io','https://coachella-2024-vip-prod-e9adf7d2eacc.herokuapp.com','http://localhost:3000'];
   server.use(cors({
     origin: function(origin, callback){
       // allow requests with no origin 
@@ -59,7 +59,7 @@ app.prepare().then(async() => {
   }));
   
   var corsOptions = {
-    origin: 'https://coachella-2024-vip-prod-e9adf7d2eacc.herokuapp.com',
+    origin: 'https://coachella-redemption.opensea.io',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
