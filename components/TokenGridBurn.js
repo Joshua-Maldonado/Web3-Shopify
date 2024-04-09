@@ -39,10 +39,10 @@ async function GetTokenBurnData(productPage) {
                 let type = "";
                 
                 if(customName==1){
-                    image.src = "Coachella_W1_Still_Redeemed.png";
+                    image.src = "Coachella_W1_Still-Redeemed.png";
                 }
                 else if(customName==2){
-                    image.src = "Coachella_W2_Still_Redeemed.png";
+                    image.src = "Coachella_W2_Still-Redeemed.png";
                 }
                 
                 image.classList.add('nft-image');
