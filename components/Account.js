@@ -103,8 +103,8 @@ function burning(){
 function successBurn () {
   setStatus(
     <div className="redirect-section">
-          <h1 className="heading mobile">Your order has been placed!</h1>
-          <p className="paragraph">You will receive a order confirmation email shortly.</p>
+          <h1 className="heading mobile">Your Keepsake has been redeemed!</h1>
+          <p className="paragraph success top">You will receive an order confirmation email shortly.</p><p className="paragraph success">To get your VIP Festival Pass, visit the official Box Office at the Indian Wells Tennis Garden - Gate 4, 78200 Miles Ave., Indian Wells, CA 92210. Head to the CREDENTIAL WILL CALL line and present your ID.</p><p className="paragraph success last">At the festival, head to the Open Sea Oasis Lounge next to the Coachella Store in the Twelve Peaks VIP Section. Present your ID to get your Oasis Lounge wristband for access all weekend long.</p>
           <button className='cta button big-btn' onClick={home}>Return Home</button> 
       </div>
   );

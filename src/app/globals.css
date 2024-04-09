@@ -745,7 +745,12 @@ h2.heading-text.h2.section-heading-text.redeemed-heading {
 .wallet-button button.cta.button {
   margin-top: 0;
 }
-
+p.paragraph.success {
+  margin-top: 15px;
+}
+p.paragraph.success.last {
+  margin-bottom: 10px;
+}
 @media screen and (max-width: 769px) {
   div#home-button {
     position: absolute;

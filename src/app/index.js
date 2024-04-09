@@ -62,8 +62,8 @@ function Page() {
                     <img src="65c27bea440ff1e38cec8388_Coachella2019_W1_300118-p-1600.jpg"  /> 
                 </div>
                 <div className="split-child connect-pg">
-                  <h2 className='heading-text h2'>Connect Wallet</h2>
-                  <p className='paragraph welcome'>Only owners of a Top Drawer Merch Club NFT are allowed to access the Top Drawer Shop. Please connect your wallet now to verify NFT owenership.</p>
+                  <h2 className='heading-text h2'>Redeem your VIP Pass + Oasis Lounge Keepsake</h2>
+                  <p className='paragraph welcome'>Please login to Open Sea and connect your wallet to begin. You will then be asked to Burn your claimable Keepsake token and submit your information for redemption. You will receive a confirmation email with more details.</p>
                   <button className="cta button login-button" onClick={login}>Login</button>
                 </div>
             </div> 
