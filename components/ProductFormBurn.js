@@ -365,7 +365,7 @@ class ProductFormBurn extends React.Component {
 
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
-                        to: "0xb241673eb04739d7E42c42a6312897F7d6694817",
+                        to: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",
                     })
 
                     console.log({ hash })
