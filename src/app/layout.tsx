@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Coachella 2024 VIP Redemption',
-  description: 'Exclusive Coachella 2024 VIP NFT Redemption Portal',
+  description: 'Exclusive Coachella 2024 NFT Redemption Portal',
   icons: {
     icon: 'favicon.png', // /public path
   }
