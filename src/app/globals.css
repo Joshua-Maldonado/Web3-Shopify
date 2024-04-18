@@ -756,6 +756,12 @@ p.paragraph.success.last {
   margin-bottom: 12px;
   line-height: 32px;
 }
+h2.heading-text.h2.below {
+  font-size: 26px;
+  margin-top: 30px;
+  line-height: 26px;
+  letter-spacing: -1px;
+}
 @media screen and (max-width: 769px) {
   div#home-button {
     position: absolute;
