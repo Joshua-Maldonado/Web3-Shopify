@@ -445,12 +445,7 @@ class ProductFormBurn extends React.Component {
               )
               console.log(encodedData2);
 
-            // const encodedData = encodeFunctionData({
-            //     functionName: "burn",
-            //     abi:customData,
-            //     args: [this.props.wallet.addresses[0], this.props.tokenid, 1]
-            //     }
-            //   )
+       
             
             const encodedData = encodeFunctionData({
                     functionName: "redeem",
@@ -502,7 +497,7 @@ class ProductFormBurn extends React.Component {
                     <h5 className='title-subheading'>BURN TO REDEEM <span>TOKEN ID: {this.props.tokenid}</span></h5>
                     <p className="sub-heading">Each Coachella Throwback Merchandise Trunk unlocks a unique curation of physical merchandise and mementos items from past festivals. Purchase one to unlock history and receive a curation of past merchandise in your size, including a shirt, a sweater, and an accessory. Select your size below for your shirt and sweater.</p>
                     <div className="product-form">
-                        {/* <p className="size-chart-button" onClick={this.props.sizeChart}>Size Chart</p> */}
+                        
                             <div className="variant-parent first">
                                 <div className="label-parent"><p className="variant-label">Tee Size</p></div>
                                 <div className="buttons-parent">

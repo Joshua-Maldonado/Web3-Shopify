@@ -90,8 +90,7 @@ app.prepare().then(async() => {
    
 
     const tokens = [];
-    //const tokens1 = (await contract.erc1155.balanceOf(req.params.address,1)).toNumber();
-    //const tokens2 = (await contract.erc1155.balanceOf(req.params.address,2)).toNumber();
+    
 
     const tokens1 = await contract.erc721.getOwned(req.params.address);
     console.log("Tokens! : ");
@@ -104,12 +103,7 @@ app.prepare().then(async() => {
     const redeemed3 = (await redeemedContract.erc1155.balanceOf(req.params.address,3)).toNumber();
 
 
-    // if(tokens1 > 0){
-    //   tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 1, qualtity: tokens1});
-    // }
-    // if(tokens2 > 0){
-    //   tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 2, qualtity: tokens2});
-    // } 
+   
 
 
     if(redeemed1 > 0){
