@@ -44,6 +44,9 @@ async function GetTokenBurnData(productPage) {
                 else if(customName==2){
                     image.src = "Coachella_W2_Still-Redeemed.png";
                 }
+                else if(customName==3){
+                    image.src = "Box_Redeemed.jpg";
+                }
                 
                 image.classList.add('nft-image');
                 imageParent.appendChild(image);
@@ -54,9 +57,12 @@ async function GetTokenBurnData(productPage) {
                 let title = document.createElement("h3");
                 title.classList.add('nft-title');
                 title.classList.add('redeemed-title');
-                
-                title.innerText = "Coachella 2024 Weekend "+customName+" VIP";
-                
+                if(customName==3){
+                    title.innerText = "Coachella Throwback Merchandise Trunk";
+                }
+                else{
+                    title.innerText = "Coachella 2024 Weekend "+customName+" VIP";
+                }
                 let quantity = document.createElement("p");
                 quantity.classList.add('nft-quantity');
                 quantity.innerText = "Quantity Owned: "+redeemedNft.qualtity;
@@ -81,9 +87,10 @@ async function GetTokenBurnData(productPage) {
       if(data.tokenData.length >= 1){
         const list = document.createElement("div");
         list.classList.add('nfts-parent');   
-        for (const nft of data.tokenData) {
+        console.log("This NFT: ---- " + JSON.stringify(data.tokenData));
+        for (const nft of data.tokenData[0]) {
                 let tokenName = nft;
-                console.log("This NFT: ++ " + JSON.stringify(nft));
+                console.log("This NFT: ++++ " + JSON.stringify(nft));
 
                 let childSuper = document.createElement("div");
                 childSuper.classList.add('nft-superchild');
@@ -95,23 +102,20 @@ async function GetTokenBurnData(productPage) {
                 let customName = tokenName.id;
                 let type = "";
                 
-                if(customName==1){
-                    image.src = "Coachella_W1_Still.png";
-                }
-                else if(customName==2){
-                    image.src = "Coachella_W2_Still.png";
-                }
+                
+                    image.src = "Coachella-Trunk.jpg";
+                
                 
                 image.classList.add('nft-image');
                 imageParent.appendChild(image);
                 let title = document.createElement("h3");
                 title.classList.add('nft-title');
                 
-                title.innerText = "Coachella 2024 Weekend "+customName+" VIP";
+                title.innerText = "Coachella Throwback Merchandise Trunk #"+nft.metadata.id;
                 
                 let quantity = document.createElement("p");
                 quantity.classList.add('nft-quantity');
-                quantity.innerText = "Quantity Owned: "+nft.qualtity;
+                quantity.innerText = "Token ID: "+nft.metadata.id;
 
                 let buttonParent = document.createElement("div");
                 buttonParent.classList.add('buttonParent');
@@ -122,8 +126,8 @@ async function GetTokenBurnData(productPage) {
                 
                 button.innerText = "BEGIN BURN"
                 button.addEventListener("click", function () {
-                console.log("clicked this button"+ nft.id)
-                productPage(nft.id)
+                console.log("clicked this button"+ nft.metadata.id)
+                productPage(nft.metadata.id)
                 });
 
                 buttonParent.appendChild(button);
@@ -142,11 +146,11 @@ async function GetTokenBurnData(productPage) {
           headingText.classList.add('heading-text');
           headingText.classList.add('h2');
           headingText.classList.add('section-heading-text');
-          headingText.innerText = "Select Token"
+          headingText.innerText = "Select Trunk Token"
           const headingParagraph = document.createElement("p");
           headingParagraph.classList.add('paragraph');
           headingParagraph.classList.add('section-paragraph');
-          headingParagraph.innerText = "Select a claimable token below to begin the claim process for your free Coachella 2024 VIP Festival Pass + Oasis Lounge Access."
+          headingParagraph.innerText = "Select a claimable trunk token below to begin the claim process for your Coachella Throwback Merchandise Trunk."
           sectionHeadingParent.appendChild(headingText);
           sectionHeadingParent.appendChild(headingParagraph);
 

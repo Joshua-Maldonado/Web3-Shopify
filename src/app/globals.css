@@ -253,6 +253,7 @@ button.cta.button.login-button {
 p.nft-quantity {
   text-align: center;
   font-size: 12px;
+  display: none;
 }
   .split-parent {
     display: flex;
@@ -351,12 +352,17 @@ p.nft-quantity {
   .variant-parent {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     display: flex;
     padding-top: 10px;
-      padding-bottom: 10px;
-      justify-content: space-between;
-      width: 100%;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0px;
+  }
+  .variant-parent.first {
+      border-bottom: none;
+      margin-top: 30px;
   }
   .variant-label-parent {
     margin-right: 30px;
@@ -396,13 +402,18 @@ p.nft-quantity {
   button.variant-button:hover{
     background-color: #d8d8d8 !important;
   }
-  button.variant-button.selected {
+  button.variant-button.selectedTee {
+    background-color: black !important;
+    color: white !important;
+  }
+  button.variant-button.selectedHoodie {
     background-color: black !important;
     color: white !important;
   }
   .label-parent {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .variant-label-parent {
     margin-right: 30px;
@@ -721,6 +732,12 @@ h1.product-page-heading {
 h2.heading-text.h2.section-heading-text.redeemed-heading {
   margin-top: 6rem;
 }
+.padding-bottom {
+  margin-bottom: 20px !important;
+}
+.padding-top {
+  margin-top: 20px !important;
+}
 h2.nft-pre-title {
   text-align: center;
   font-size: 1.7rem;
@@ -741,6 +758,10 @@ h2.heading-text.h2.section-heading-text.redeemed-heading {
   border-top: 1px solid #00000024;
   margin-top: 3rem;
   width: 100%;
+}
+.title-subheading span {
+  color: #f99b45;
+  padding-left: 10px;
 }
 .wallet-button button.cta.button {
   margin-top: 0;

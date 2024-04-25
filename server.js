@@ -4,10 +4,13 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import next from 'next';
 import dotenv  from "dotenv";
-//import ABI from "./src/abi.json" assert { type: "json" };
+import ABI from "./src/abi.json" assert { type: "json" };
+import NewABI from "./src/newABI.json" assert { type: "json" };
 import LiveABI from "./src/liveABI.json" assert { type: "json" };
+import NewLiveABI from "./src/newLiveABI.json" assert { type: "json" };
 import RedeemABI from "./src/liveRedeemABI.json" assert { type: "json" };
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { readContract } from "thirdweb";
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -16,24 +19,27 @@ const handle = app.getRequestHandler()
 dotenv.config();
 
 //////////////////
-// test net: avalanche-fuji
+// test net: avalanche-fuji  Main-net: Avalanche
 
-const sdk = new ThirdwebSDK("Avalanche", {
+const sdk = new ThirdwebSDK("avalanche-fuji", {
   secretKey: process.env.SECRET_KEY,
 });
 /////////////////////////
 // Test contracts
-// const contract = await sdk.getContractFromAbi("0xB15cb2C66a4b9A7640bbfC803993D7ACBEB879C7", ABI);
+ const contract = await sdk.getContractFromAbi("0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2", NewABI);
+ //  console.log(contract);
+
+ const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+ 
+
+
+ /////////////////////////
+// Live contracts
+ //const contract = await sdk.getContractFromAbi("0x8E4c9206e664A18845EC6855f2a6d3A45309491b", NewLiveABI);
 //   console.log(contract);
 
-// const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+// const redeemedContract = await sdk.getContractFromAbi("0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461", RedeemABI);
 // console.log(redeemedContract);
-
-const contract = await sdk.getContractFromAbi("0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800", LiveABI);
-  console.log(contract);
-
-const redeemedContract = await sdk.getContractFromAbi("0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461", RedeemABI);
-console.log(redeemedContract);
 
 app.prepare().then(async() => {
   
@@ -64,7 +70,15 @@ app.prepare().then(async() => {
   }
 
 
-
+  server.get('/isapproved/:address', cors(corsOptions), async function (req, res) {
+    const result = await readContract({
+      contract,
+      method: "isApprovedForAll",
+      options: {data:[req.params.address,req.params.address]},
+    });
+    console.log(result)
+    return(result)
+  })
 
   server.get('/gettokendata/:address', cors(corsOptions), async function (req, res) {
 
@@ -76,25 +90,36 @@ app.prepare().then(async() => {
    
 
     const tokens = [];
-    const tokens1 = (await contract.erc1155.balanceOf(req.params.address,1)).toNumber();
-    const tokens2 = (await contract.erc1155.balanceOf(req.params.address,2)).toNumber();
+    //const tokens1 = (await contract.erc1155.balanceOf(req.params.address,1)).toNumber();
+    //const tokens2 = (await contract.erc1155.balanceOf(req.params.address,2)).toNumber();
 
-    const redeemed = [];
+    const tokens1 = await contract.erc721.getOwned(req.params.address);
+    console.log("Tokens! : ");
+    console.log(tokens1);
+
+    tokens.push(tokens1);
+     const redeemed = [];
     const redeemed1 = (await redeemedContract.erc1155.balanceOf(req.params.address,1)).toNumber();
     const redeemed2 = (await redeemedContract.erc1155.balanceOf(req.params.address,2)).toNumber();
+    const redeemed3 = (await redeemedContract.erc1155.balanceOf(req.params.address,3)).toNumber();
 
 
-    if(tokens1 > 0){
-      tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 1, qualtity: tokens1});
-    }
-    if(tokens2 > 0){
-      tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 2, qualtity: tokens2});
-    } 
+    // if(tokens1 > 0){
+    //   tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 1, qualtity: tokens1});
+    // }
+    // if(tokens2 > 0){
+    //   tokens.push({contract: "0x5a40869A2f829FB9A975D16D25cc1C52e1cE2800",id: 2, qualtity: tokens2});
+    // } 
+
+
     if(redeemed1 > 0){
       redeemed.push({contract: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",id: 1, qualtity: redeemed1});
     }
     if(redeemed2 > 0){
       redeemed.push({contract: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",id: 2, qualtity: redeemed2});
+    }
+    if(redeemed3 > 0){
+      redeemed.push({contract: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",id: 3, qualtity: redeemed3});
     }
 
     console.log(tokens);
@@ -123,7 +148,7 @@ server.post('/neworder', jsonParser, async function(req, res) {
   var origin = req.get('sec-fetch-site');
     if(origin == "same-origin"){
 
-      await fetch('https://webhooks.runalloy.com/6604637c971f7dd2d5f5d739', {
+      await fetch('https://webhooks.runalloy.com/6626bf0af14215d7e5b29b4d', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

@@ -1,6 +1,7 @@
 
 import {  useSendTransaction, useSwitchChain, useChainId } from 'wagmi';
 import ProductFormBurn from './ProductFormBurn'
+import newABI from '../src/newABI.json';
 
 import { useEffect, useMemo } from 'react'
 
@@ -13,12 +14,14 @@ export default function ProductPage3Burn(props) {
   useEffect(()=> {
     // DONT FORGET TO SWITCH CHAIN!!!
     // Fuji id: 43113     Main-net id: 43114
-    switchChainAsync({chainId: 43114})
+    switchChainAsync({chainId: 43113})
   },[
 
   ])
-  console.log({hash, isLoading, status, isSuccess})
+ 
 
+  console.log({hash, isLoading, status, isSuccess })
+  
   
     function toggleSizeChart() {
         var target = document.getElementById("size-chart-target");

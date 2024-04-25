@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 import { Loader } from "@googlemaps/js-api-loader"
 import customData from '../src/abi.json';
 import redeemedABI from '../src/liveRedeemABI.json';
+import newABI from '../src/newABI.json';
 //import redeemAbi from '../src/redeemABI.json';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 //import addTransaction from '../api/addTransaction'
@@ -14,7 +15,9 @@ import { custom, encodeFunctionData, encodeAbiParameters, toBytes } from 'viem'
 //import { numberToBytes } from 'viem'
 //import { stringToBytes } from 'viem'
 import { getWalletClient } from '@wagmi/core'
-
+import isApproved from "../api/getApprovalState"
+import { waitForTransactionReceipt } from '@wagmi/core'
+import { readContract } from '@wagmi/core'
 
 class ProductFormBurn extends React.Component {
 
@@ -32,6 +35,7 @@ class ProductFormBurn extends React.Component {
         this.triggerCounter = this.triggerCounter.bind(this)
         this.burnToken = this.burnToken.bind(this)
         this.sendOrder = this.sendOrder.bind(this)
+        this.approveBurn = this.approveBurn.bind(this)
         this.sdk = null
         this.contract = null
         this.address = null
@@ -44,6 +48,8 @@ class ProductFormBurn extends React.Component {
 
         console.log(this.props.tokenid)
 
+        // const dataApprove = await isApproved(this.props.wallet.addresses[0])
+        // console.log("THIS DATA: "+{dataApprove})
 
         const loader = new Loader({
             apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS,
@@ -61,16 +67,9 @@ class ProductFormBurn extends React.Component {
       }
     
       initialState() {
-        var productTitle="";
-        var imgSrc="";
-        if(this.props.tokenid==1){
-            productTitle = "2024 Weekend 1 VIP Festival Pass + Oasis Lounge Access";
-            imgSrc="Coachella_W1_Still.png";
-        }
-        else if(this.props.tokenid==2){
-            productTitle = "2024 Weekend 2 VIP Festival Pass + Oasis Lounge Access";
-            imgSrc="Coachella_W2_Still.png";
-        }
+        var productTitle="2024 Coachella Welcome Box";
+        var imgSrc="Coachella-Trunk.jpg";
+
         return {
             contract: '',
             token_id: this.props.tokenid,
@@ -90,8 +89,8 @@ class ProductFormBurn extends React.Component {
             update_counter: 0,
             selectedTee: '',
             selectedHoodie: '',
-            selectedTColor: '',
-            selectedHColor: '',
+            selectedTeeName: '',
+            selectedHoodieName: '',
             selected: '',
             shipping: '',
             shippingText: 'Select Rate',
@@ -120,19 +119,35 @@ class ProductFormBurn extends React.Component {
       
 
       handleChange = event => {
-        
-          this.setState({['selected']: event.target.id},
+       
+        this.setState({['selectedTeeName']: event.target.innerText})
+          this.setState({['selectedTee']: event.target.id},
               () => {
-                  
-                  var old = document.getElementsByClassName("selected");
+                console.log(this.state.selectedTeeName)
+                  var old = document.getElementsByClassName("selectedTee");
                   for(var i = 0; i<old.length; i++){
-                      old[i].classList.remove("selected");
+                      old[i].classList.remove("selectedTee");
                   }
-                  event.target.classList.add("selected");
+                  event.target.classList.add("selectedTee");
                   this.updateSubmit();
               });
         
       }
+
+      handleChangeHoodie = event => {
+        this.setState({['selectedHoodieName']: event.target.innerText})
+        this.setState({['selectedHoodie']: event.target.id},
+            () => {
+                console.log(this.state.selectedHoodieName)
+                var old = document.getElementsByClassName("selectedHoodie");
+                for(var i = 0; i<old.length; i++){
+                    old[i].classList.remove("selectedHoodie");
+                }
+                event.target.classList.add("selectedHoodie");
+                this.updateSubmit();
+            });
+      
+    }
 
 
   
@@ -149,6 +164,11 @@ class ProductFormBurn extends React.Component {
                 
                 btnStatus = true
             
+                if(this.state.selectedHoodie == '' || this.state.selectedTee == '' ){
+                    btnStatus = false;
+                    this.setState({['button_text']: 'Select Size'});
+                    console.log("1");
+                }
             
                 if(this.state.street_address == '' || this.state.city == '' || this.state.country == '' || this.state.postcode == ''){
                     btnStatus = false;
@@ -281,11 +301,18 @@ class ProductFormBurn extends React.Component {
             //console.log("SUBMIT: "+JSON.stringify(this.state));
             console.log("Hoodie Size: "+ this.state.selectedHoodie  + "Hoodie Color: "+ this.state.selectedHColor + " Tee Size: "+ this.state.selectedTee + "Tee Color: "+ this.state.selectedTColor );
 
-            
+            // const result = readContract({
+            //     newABI,
+            //     address: '0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2',
+            //     functionName: 'isApprovedForAll',
+            //     chainId: 43113,
+            //     args: [this.props.wallet.addresses[0],"0xb241673eb04739d7E42c42a6312897F7d6694817"], 
+            //   })
+            //   console.log(result)
             //this.sendOrder();
             //this.chargeShipping();
             
-            this.burnToken();
+            this.approveBurn();
             //this.updateMetadata();
             //this.props.buttonFunction();
         }
@@ -303,9 +330,14 @@ class ProductFormBurn extends React.Component {
             }
 
             const order = {  
-                "variant_id":this.state.selected,
-                "product_id":product,
-                "name":title,
+                "tee_variant_id":this.state.selectedTee,
+                "tee_product_id":"7393309917236",
+                "tee_variant_name":this.state.selectedTeeName,
+                "hd_variant_id":this.state.selectedHoodie,
+                "hd_product_id":"7393310670900",
+                "hd_variant_name":this.state.selectedHoodieName,
+                "hd_name":"Coachella Throwback Merchandise Trunk - Sweater",
+                "tee_name":"Coachella Throwback Merchandise Trunk - Tee",
                 "quantity":1,
                 "first_name":this.state.first_name,
                 "last_name":this.state.last_name,
@@ -318,7 +350,7 @@ class ProductFormBurn extends React.Component {
                 "country":this.state.country,
                 "zip":this.state.postcode,
                 "tokenID":this.props.tokenid,
-                "walletAddress":this.props.address,
+                "walletAddress":this.props.wallet.addresses[0],
                 "mapsLink":this.state.googleMapLink, 
                 "wallet_address": this.props.wallet,
                 "token_id":this.props.tokenid
@@ -326,6 +358,74 @@ class ProductFormBurn extends React.Component {
             const response = await sendNewOrder(order);
             console.log("SEND FIRST RESPONSE: ",response)
             return(response)
+        }
+
+        checkApproval = async () => {
+            const encodedData = encodeFunctionData({
+                functionName: "isApprovedForAll",
+                abi:newABI,
+                args: [this.props.wallet.addresses[0],this.props.wallet.addresses[0]]
+                }
+              )
+            console.log(encodedData);
+                try{
+
+                    const hash = await this.props.readContract({
+                        // data: encodedData,
+                        // to: "0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2",
+                        newABI,
+                        address: '0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2',
+                        functionName: 'isApprovedForAll',
+                        args: [this.props.wallet.addresses[0],this.props.wallet.addresses[0]], 
+                    })
+
+                    console.log({ hash })
+                    if(hash){
+                        
+                        console.log(hash);
+                    }
+                    }
+                    catch(e){
+                    //const errorReason = (e as TransactionError)?.reason;
+                        console.log("Execution reverted with reason:", e);
+                        console.log(e.details);
+                        console.log('Error:', e);
+                        this.setState({['button_status']: ''});
+                        //this.props.error()
+                    }  
+        }
+
+        approveBurn = async () => {
+            const encodedData = encodeFunctionData({
+                functionName: "setApprovalForAll",
+                abi:newABI,
+                args: ["0xb241673eb04739d7E42c42a6312897F7d6694817",true]
+                }
+              )
+            console.log(encodedData);
+                try{
+
+                    const dataHash = await this.props.sendTransaction({
+                        data: encodedData,
+                        to: "0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2",
+                    })
+
+                    console.log({ dataHash })
+                    if(dataHash){
+
+                        setTimeout(() => {
+                            
+                            this.burnToken();
+                          }, 5000);
+                    }
+                    }
+                    catch(e){
+                        console.log("Execution reverted with reason:", e);
+                        console.log(e.details);
+                        console.log('Error:', e);
+                        this.setState({['button_status']: ''});
+                    }  
+
         }
 
         burnToken = async () => {
@@ -341,7 +441,7 @@ class ProductFormBurn extends React.Component {
                   { name: 'salt', type: 'uint256' },
                   { name: 'signature', type: 'bytes' },
                 ],
-                [this.props.tokenid, 0, redemptionHash, [],0,sig]
+                [3, 0, redemptionHash, [],0,sig]
               )
               console.log(encodedData2);
 
@@ -365,7 +465,7 @@ class ProductFormBurn extends React.Component {
 
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
-                        to: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",
+                        to: "0xb241673eb04739d7E42c42a6312897F7d6694817",
                     })
 
                     console.log({ hash })
@@ -398,16 +498,42 @@ class ProductFormBurn extends React.Component {
                 <img src={this.state.img}  />
                 </div>
                 <div className="split-child">
-                    <h1  className="heading mobile product title-product third">{ this.state.productT }</h1>
-                    <h5 className='title-subheading'>BURN TO REDEEM</h5>
-                    <p className="sub-heading">The VIP Pass + Oasis Lounge Keepsake by Coachella is an NFT that grants holders one VIP ticket to the 2024 Coachella Valley Music and Arts Festival as well as access to the Oasis Lounge — an exclusive lounge + bar inside the festival grounds’ VIP section. Inside, holders will find a serene lounge area with complimentary food and drinks, air-conditioning, and access to exclusive art experiences and merchandise.</p>
-
+                    <h1  className="heading mobile product title-product third">Coachella Throwback Merchandise Trunk</h1>
+                    <h5 className='title-subheading'>BURN TO REDEEM <span>TOKEN ID: {this.props.tokenid}</span></h5>
+                    <p className="sub-heading">Each Coachella Throwback Merchandise Trunk unlocks a unique curation of physical merchandise and mementos items from past festivals. Purchase one to unlock history and receive a curation of past merchandise in your size, including a shirt, a sweater, and an accessory. Select your size below for your shirt and sweater.</p>
+                    <div className="product-form">
+                        {/* <p className="size-chart-button" onClick={this.props.sizeChart}>Size Chart</p> */}
+                            <div className="variant-parent first">
+                                <div className="label-parent"><p className="variant-label">Tee Size</p></div>
+                                <div className="buttons-parent">
+                                    <button id="43276424871988" className="variant-button" onClick={this.handleChange}>S</button>
+                                    <button id="43276424904756" className="variant-button" onClick={this.handleChange}>M</button>
+                                    <button id="43276424937524" className="variant-button" onClick={this.handleChange}>L</button>
+                                    <button id="43276424970292" className="variant-button" onClick={this.handleChange}>XL</button>
+                                    <button id="43276425003060" className="variant-button" onClick={this.handleChange}>2XL</button>
+                                    
+                                </div>
+                            </div>
+                            <div className="variant-parent">
+                                <div className="label-parent"><p className="variant-label">Sweater Size</p></div>
+                                <div className="buttons-parent">
+                                    <button id="43276429492276" className="variant-button" onClick={this.handleChangeHoodie}>S</button>
+                                    <button id="43276429525044" className="variant-button" onClick={this.handleChangeHoodie}>M</button>
+                                    <button id="43276429557812" className="variant-button" onClick={this.handleChangeHoodie}>L</button>
+                                    <button id="43276429590580" className="variant-button" onClick={this.handleChangeHoodie}>XL</button>
+                                    <button id="43276429623348" className="variant-button" onClick={this.handleChangeHoodie}>2XL</button>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
                 </div>
                 </div> 
             </div>
             <div className="form-parent">
                 <h1 className="heading mobile">Complete Burn</h1>
-                <p className="paragraph">Fill out the form below to claim your reward. The burn-to-claim will process once you click the "Submit" button at the end of the form.</p>
+                <p className="paragraph">Fill out the form below to redeem your NFT. The burn-to-claim will process once you click the “Submit” button at the end of the form. Prior to submitting this form. Questions? Contact coachella-keepsakes@opensea.io.</p>
+                <p className="paragraph padding-top padding-bottom">Please note that we are unable to complete shipments to Belarus, Iran, Russia, & Yemen at this time.</p>
                 <div className="checkout-form">
                     <div className='form-imput-parent'>
                     <div className="input-parent first">
@@ -477,7 +603,7 @@ class ProductFormBurn extends React.Component {
                             type="text"
                             name={"street_address"}
                             value={this.state.street_address}
-                            placeholder={"123 Cool Cats Place"}
+                            placeholder={"123 Valley pl"}
                             onChange={this.handleFormChange}
                         />
                         </div>
@@ -504,7 +630,7 @@ class ProductFormBurn extends React.Component {
                             <input 
                             name={"city"}
                             value={this.state.city}
-                            placeholder={"Catsville"}
+                            placeholder={"Coachellaville"}
                             onChange={this.handleFormChange}
                             />
                         </div>
