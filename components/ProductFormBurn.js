@@ -4,6 +4,7 @@ import { Loader } from "@googlemaps/js-api-loader"
 import customData from '../src/abi.json';
 import redeemedABI from '../src/liveRedeemABI.json';
 import newABI from '../src/newABI.json';
+import newLiveABI from '../src/newLiveABI.json';
 //import redeemAbi from '../src/redeemABI.json';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 //import addTransaction from '../api/addTransaction'
@@ -390,8 +391,8 @@ class ProductFormBurn extends React.Component {
         approveBurn = async () => {
             const encodedData = encodeFunctionData({
                 functionName: "setApprovalForAll",
-                abi:newABI,
-                args: ["0xb241673eb04739d7E42c42a6312897F7d6694817",true]
+                abi:newLiveABI,
+                args: ["0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",true]
                 }
               )
             console.log(encodedData);
@@ -399,7 +400,7 @@ class ProductFormBurn extends React.Component {
 
                     const dataHash = await this.props.sendTransaction({
                         data: encodedData,
-                        to: "0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2",
+                        to: "0x8E4c9206e664A18845EC6855f2a6d3A45309491b",
                     })
 
                     console.log({ dataHash })
@@ -408,7 +409,7 @@ class ProductFormBurn extends React.Component {
                         setTimeout(() => {
                             
                             this.burnToken();
-                          }, 5000);
+                          }, 3000);
                     }
                     }
                     catch(e){
@@ -452,7 +453,7 @@ class ProductFormBurn extends React.Component {
 
                     const hash = await this.props.sendTransaction({
                         data: encodedData,
-                        to: "0xb241673eb04739d7E42c42a6312897F7d6694817",
+                        to: "0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461",
                     })
 
                     console.log({ hash })

@@ -21,25 +21,25 @@ dotenv.config();
 //////////////////
 // test net: avalanche-fuji  Main-net: Avalanche
 
-const sdk = new ThirdwebSDK("avalanche-fuji", {
+const sdk = new ThirdwebSDK("Avalanche", {
   secretKey: process.env.SECRET_KEY,
 });
 /////////////////////////
 // Test contracts
- const contract = await sdk.getContractFromAbi("0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2", NewABI);
+ //const contract = await sdk.getContractFromAbi("0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2", NewABI);
  //  console.log(contract);
 
- const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
+ //const redeemedContract = await sdk.getContractFromAbi("0xb241673eb04739d7E42c42a6312897F7d6694817", ABI);
  
 
 
  /////////////////////////
 // Live contracts
- //const contract = await sdk.getContractFromAbi("0x8E4c9206e664A18845EC6855f2a6d3A45309491b", NewLiveABI);
-//   console.log(contract);
+ const contract = await sdk.getContractFromAbi("0x8E4c9206e664A18845EC6855f2a6d3A45309491b", NewLiveABI);
+  console.log(contract);
 
-// const redeemedContract = await sdk.getContractFromAbi("0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461", RedeemABI);
-// console.log(redeemedContract);
+const redeemedContract = await sdk.getContractFromAbi("0x946dEdA8B8AbA7717A6f18c9B41AE821eD78F461", RedeemABI);
+console.log(redeemedContract);
 
 app.prepare().then(async() => {
   
