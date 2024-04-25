@@ -301,14 +301,6 @@ class ProductFormBurn extends React.Component {
             //console.log("SUBMIT: "+JSON.stringify(this.state));
             console.log("Hoodie Size: "+ this.state.selectedHoodie  + "Hoodie Color: "+ this.state.selectedHColor + " Tee Size: "+ this.state.selectedTee + "Tee Color: "+ this.state.selectedTColor );
 
-            // const result = readContract({
-            //     newABI,
-            //     address: '0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2',
-            //     functionName: 'isApprovedForAll',
-            //     chainId: 43113,
-            //     args: [this.props.wallet.addresses[0],"0xb241673eb04739d7E42c42a6312897F7d6694817"], 
-            //   })
-            //   console.log(result)
             //this.sendOrder();
             //this.chargeShipping();
             

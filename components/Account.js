@@ -103,8 +103,8 @@ function burning(){
 function successBurn () {
   setStatus(
     <div className="redirect-section">
-          <h1 className="heading mobile">Your Keepsake has been redeemed!</h1>
-          <p className="paragraph success top">You will receive an order confirmation email shortly.</p><p className="paragraph success"></p><p className="paragraph success last"></p>
+          <h1 className="heading mobile">Your Coachella Merchandise Trunk has been redeemed!</h1>
+          <p className="paragraph success top">You will receive an order confirmation email shortly.</p><p className="paragraph success last">Please be advised that Coachella Merchandise Trunk orders aren't expected to ship until mid-June. As soon as your order ships, you will receive a shipping confirmation email containing your tracking details.</p>
           <button className='cta button big-btn' onClick={home}>Return Home</button> 
       </div>
   );
