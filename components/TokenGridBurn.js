@@ -111,11 +111,11 @@ async function GetTokenBurnData(productPage) {
                 let title = document.createElement("h3");
                 title.classList.add('nft-title');
                 
-                title.innerText = "Coachella Throwback Merchandise Trunk #"+nft.metadata.id;
+                title.innerText = "Coachella Throwback Merchandise Trunk #"+nft.tokenId;
                 
                 let quantity = document.createElement("p");
                 quantity.classList.add('nft-quantity');
-                quantity.innerText = "Token ID: "+nft.metadata.id;
+                quantity.innerText = "Token ID: "+nft.tokenId;
 
                 let buttonParent = document.createElement("div");
                 buttonParent.classList.add('buttonParent');
@@ -126,8 +126,8 @@ async function GetTokenBurnData(productPage) {
                 
                 button.innerText = "BEGIN BURN"
                 button.addEventListener("click", function () {
-                console.log("clicked this button"+ nft.metadata.id)
-                productPage(nft.metadata.id)
+                console.log("clicked this button"+ nft.tokenId)
+                productPage(nft.tokenId)
                 });
 
                 buttonParent.appendChild(button);

@@ -8,7 +8,7 @@ import { Providers } from './providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Coachella 2024 VIP Redemption',
+  title: 'Coachella Throwback Merchandise Trunk Redemption',
   description: 'Exclusive Coachella 2024 NFT Redemption Portal',
   icons: {
     icon: 'favicon.png', // /public path

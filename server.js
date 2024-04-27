@@ -92,12 +92,22 @@ app.prepare().then(async() => {
     const tokens = [];
     
 
-    const tokens1 = await contract.erc721.getOwned(req.params.address);
-    console.log("Tokens! : ");
-    console.log(tokens1);
+    //const tokens1 = await contract.erc721.getOwned("0x313752A0a3d0f69fccB5CE3E9bb2D0b372C5F820");
 
-    tokens.push(tokens1);
-     const redeemed = [];
+    const options = {method: 'GET', headers: {accept: 'application/json'}};
+    const url = "https://glacier-api.avax.network/v1/chains/43114/addresses/"+req.params.address+"/balances:listErc721?contractAddress=0x8E4c9206e664A18845EC6855f2a6d3A45309491b";
+
+    fetch(url, options)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      tokens.push(response.erc721TokenBalances);
+      console.log("TOKENS AFTER PUSH: "+tokens)
+    })
+    .catch(err => console.error(err));
+
+    
+    const redeemed = [];
     const redeemed1 = (await redeemedContract.erc1155.balanceOf(req.params.address,1)).toNumber();
     const redeemed2 = (await redeemedContract.erc1155.balanceOf(req.params.address,2)).toNumber();
     const redeemed3 = (await redeemedContract.erc1155.balanceOf(req.params.address,3)).toNumber();
