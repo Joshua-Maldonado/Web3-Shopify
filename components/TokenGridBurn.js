@@ -84,7 +84,7 @@ async function GetTokenBurnData(productPage) {
 
 
     if(data.tokenData){
-      if(data.tokenData.length >= 1){
+      if(data.tokenData[0].length >= 1){
         const list = document.createElement("div");
         list.classList.add('nfts-parent');   
         console.log("This NFT: ---- " + JSON.stringify(data.tokenData));
