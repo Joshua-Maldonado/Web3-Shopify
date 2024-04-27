@@ -409,7 +409,7 @@ class ProductFormBurn extends React.Component {
                         setTimeout(() => {
                             
                             this.burnToken();
-                          }, 3000);
+                          }, 6000);
                     }
                     }
                     catch(e){
