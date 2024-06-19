@@ -4,9 +4,8 @@ import { useEffect, useState } from 'react';
 import ProductPage2Burn from './ProductPage2Burn'
 import ProductPageBurn from './ProductPageBurn'
 import DisplayToBurn  from './DisplayToBurn'
-import { useAuth } from "@opensea/wallet"
+import { useAccount, useConnectFlow, useDisconnect } from "@opensea/wallet"
 import { Connector, useConnect } from 'wagmi'
-import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi'
 
 
 
@@ -16,7 +15,9 @@ import React from 'react'
 export default function Account() {
   const [ status, setStatus ] = useState("")
   const [ logged, setLogged ] = useState("")
-  const { ready, user, login, logout } = useAuth()
+  
+  const  login  = useConnectFlow()
+  const  logout = useDisconnect()
 
   
   const { connect, connectors, error, isLoading, pendingConnector } =
@@ -24,11 +25,11 @@ export default function Account() {
 
    
   const { address } = useAccount();
-  const { connector } = useAccount()
+  
 
   console.log(pendingConnector)
  
-  const activeAddress = user.addresses[0]
+  const activeAddress = address
   useEffect(() => {
       if (activeAddress) {
         console.log('new account', activeAddress)
@@ -71,7 +72,7 @@ export default function Account() {
       console.log("Page 1 Token ID Clicked: "+tokenid)
       setStatus(
         <div>
-          <ProductPageBurn nextpage={ProductPage2toBurn} burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={user}></ProductPageBurn>
+          <ProductPageBurn nextpage={ProductPage2toBurn} burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={address}></ProductPageBurn>
         </div>
       );
     }
@@ -83,7 +84,7 @@ export default function Account() {
       console.log("Page 2 Token ID Clicked: "+tokenid)
       setStatus(
         <div>
-          <ProductPage2Burn burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={user} connector={activeAddress} ></ProductPage2Burn> 
+          <ProductPage2Burn burning={burning} success={successBurn} tokenid={tokenid} error={errorBurn} wallet={address} connector={activeAddress} ></ProductPage2Burn> 
         </div>
       );
     }
@@ -137,7 +138,7 @@ function errorBurn () {
     })
     setStatus(
       <div>
-                 <DisplayToBurn productPage={ProductPage2toBurn} error={errorFunction} account={ user } ></DisplayToBurn> 
+                 <DisplayToBurn productPage={ProductPage2toBurn} error={errorFunction} account={ address } ></DisplayToBurn> 
         </div>
     );
   }

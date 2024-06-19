@@ -6,7 +6,7 @@ import { WalletProvider } from "@opensea/wallet"
 export function Providers(props: { children: ReactNode }) {
 
   return (
-    <WalletProvider config={{ environment: "production"}}>
+    <WalletProvider environment="development" >
       {props.children}
     </WalletProvider>
   )

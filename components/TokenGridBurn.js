@@ -1,14 +1,13 @@
 
-import { useAccount } from 'wagmi'
 import getTokensBurn from '../api/getTokensBurn'
-import { useAuth } from "@opensea/wallet"
+import { useAccount, useConnectFlow, useDisconnect } from "@opensea/wallet"
 
 
 
 async function GetTokenBurnData(productPage) {
-    const { ready, user, login, logout } = useAuth()
+    const { address } = useAccount()
 
-  const address = user.addresses[0];
+  
     console.log(address)
   const waitingParent = document.createElement("div");
   waitingParent.classList.add('waiting-parent');

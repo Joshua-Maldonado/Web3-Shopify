@@ -11,7 +11,6 @@ import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import sendNewOrder from '../api/sendNewOrder'
 import { fetchSigner } from '@wagmi/core'
 //import { useAccount } from 'wagmi'
-import { useAuth } from "@opensea/wallet"
 import { custom, encodeFunctionData, encodeAbiParameters, toBytes } from 'viem'
 //import { numberToBytes } from 'viem'
 //import { stringToBytes } from 'viem'
@@ -343,7 +342,7 @@ class ProductFormBurn extends React.Component {
                 "country":this.state.country,
                 "zip":this.state.postcode,
                 "tokenID":this.props.tokenid,
-                "walletAddress":this.props.wallet.addresses[0],
+                "walletAddress":this.props.wallet,
                 "mapsLink":this.state.googleMapLink, 
                 "wallet_address": this.props.wallet,
                 "token_id":this.props.tokenid
@@ -357,7 +356,7 @@ class ProductFormBurn extends React.Component {
             const encodedData = encodeFunctionData({
                 functionName: "isApprovedForAll",
                 abi:newABI,
-                args: [this.props.wallet.addresses[0],this.props.wallet.addresses[0]]
+                args: [this.props.wallet,this.props.wallet]
                 }
               )
             console.log(encodedData);
@@ -369,7 +368,7 @@ class ProductFormBurn extends React.Component {
                         newABI,
                         address: '0xBbD09E2E9852ef987d9d895C7eC42378b90A8Ed2',
                         functionName: 'isApprovedForAll',
-                        args: [this.props.wallet.addresses[0],this.props.wallet.addresses[0]], 
+                        args: [this.props.wallet,this.props.wallet], 
                     })
 
                     console.log({ hash })
@@ -443,7 +442,7 @@ class ProductFormBurn extends React.Component {
             const encodedData = encodeFunctionData({
                     functionName: "redeem",
                     abi:redeemedABI,
-                    args: [[this.props.tokenid],this.props.wallet.addresses[0],encodedData2]
+                    args: [[this.props.tokenid],this.props.wallet,encodedData2]
                     }
                   )
               console.log(encodedData);

@@ -2,7 +2,7 @@
 //import { ConnectKitButton } from 'connectkit'
 //import { useAccount } from 'wagmi'
 import  Account  from '../../components/Account'
-import { useAuth } from "@opensea/wallet"
+import { useAccount, useConnectFlow, useDisconnect } from "@opensea/wallet"
 import "@opensea/wallet/style.css"
 //import { useEthersSigner } from '../../components/ethers'
 
@@ -11,10 +11,11 @@ import "@opensea/wallet/style.css"
 
 function Page() {
   //const { account, isConnected } = useAccount()
-  const { ready, user, login, logout } = useAuth()
+  const { ready, address } = useAccount()
+  const login = useConnectFlow()
+  const logout = useDisconnect()
   
-  
-  console.log(user)
+
   //logout()
 
   if (!ready) {
@@ -44,7 +45,7 @@ function Page() {
                     </div>
                     </div></>
      }
-  if (!user) {
+  if (!address) {
     return <>
     <div className='body-section'>
       <div className='page-header'>
@@ -98,7 +99,7 @@ function Page() {
         </div>
       </div>
       <div className='main-content'>
-         <Account address={ user.addresses[0] } connected={ user }></Account> 
+         <Account address={ address } connected={ address }></Account> 
       </div>
       <div className='footer'>
         <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
