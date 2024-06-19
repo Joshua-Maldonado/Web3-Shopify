@@ -5,19 +5,11 @@ import customData from '../src/abi.json';
 import redeemedABI from '../src/liveRedeemABI.json';
 import newABI from '../src/newABI.json';
 import newLiveABI from '../src/newLiveABI.json';
-//import redeemAbi from '../src/redeemABI.json';
-import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-//import addTransaction from '../api/addTransaction'
+
 import sendNewOrder from '../api/sendNewOrder'
-import { fetchSigner } from '@wagmi/core'
-//import { useAccount } from 'wagmi'
+
 import { custom, encodeFunctionData, encodeAbiParameters, toBytes } from 'viem'
-//import { numberToBytes } from 'viem'
-//import { stringToBytes } from 'viem'
-import { getWalletClient } from '@wagmi/core'
-import isApproved from "../api/getApprovalState"
-import { waitForTransactionReceipt } from '@wagmi/core'
-import { readContract } from '@wagmi/core'
+
 
 class ProductFormBurn extends React.Component {
 

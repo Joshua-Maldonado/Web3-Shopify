@@ -19,15 +19,11 @@ export default function Account() {
   const  login  = useConnectFlow()
   const  logout = useDisconnect()
 
-  
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect()
 
    
   const { address } = useAccount();
   
 
-  console.log(pendingConnector)
  
   const activeAddress = address
   useEffect(() => {
