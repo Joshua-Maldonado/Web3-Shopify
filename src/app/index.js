@@ -66,7 +66,7 @@ function Page() {
                   <h2 className='heading-text h2'>Coachella Throwback Merchandise Trunk</h2>
                   <p className='paragraph welcome'>Hold a Coachella Throwback Merchandise Trunk NFT? Connect your wallet below to begin redemption.</p>
                   <p className='paragraph welcome'>Note: Please ensure that the wallet which contains your Coachella Throwback Merchandise token has enough AVAX to complete your burn.</p>
-                  <p className='paragraph welcome'>The last day to redeem is June 14th.</p>
+                  <p className='paragraph welcome last'>The last day to redeem is June 28th.</p>
                   <button className="cta button login-button" onClick={login}>Login</button>
                 </div>
             </div> 
