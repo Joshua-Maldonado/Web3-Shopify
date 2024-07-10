@@ -4,6 +4,7 @@
 import  Account  from '../../components/Account'
 import { useAccount, useConnectFlow, useDisconnect } from "@opensea/wallet"
 import "@opensea/wallet/style.css"
+import { Link } from "@react-email/link";
 //import { useEthersSigner } from '../../components/ethers'
 
 
@@ -45,7 +46,7 @@ function Page() {
                     </div>
                     </div></>
      }
-  if (!address) {
+  // if (!address) {
     return <>
     <div className='body-section'>
       <div className='page-header'>
@@ -64,10 +65,9 @@ function Page() {
                 </div>
                 <div className="split-child connect-pg">
                   <h2 className='heading-text h2'>Coachella Throwback Merchandise Trunk</h2>
-                  <p className='paragraph welcome'>Hold a Coachella Throwback Merchandise Trunk NFT? Connect your wallet below to begin redemption.</p>
-                  <p className='paragraph welcome'>Note: Please ensure that the wallet which contains your Coachella Throwback Merchandise token has enough AVAX to complete your burn.</p>
-                  <p className='paragraph welcome last'>The last day to redeem is June 28th.</p>
-                  <button className="cta button login-button" onClick={login}>Login</button>
+                  <p className='paragraph welcome'>The redemption window for the Coachella Throwback Merchandise Trunk NFT has closed. Please reach out to <Link href={`mailto:innovation@coachella.com`}>innovation@coachella.com</Link> for support.</p>
+                  
+                  {/* <button className="cta button login-button" onClick={login}>Login</button> */}
                 </div>
             </div> 
         </div>
@@ -81,31 +81,31 @@ function Page() {
   </>
   
   
-  }
-  return <>
-       <div className='body-section'>
-      <div className='page-header'>
-        <div className='header-content'>
-          <div id="home-button" className='home-button-parent'>
-            <div className='png-wrapper'>
-              <img src="back1.png" className='home-btn'/>
-            </div>
+ // }
+  // return <>
+  //      <div className='body-section'>
+  //     <div className='page-header'>
+  //       <div className='header-content'>
+  //         <div id="home-button" className='home-button-parent'>
+  //           <div className='png-wrapper'>
+  //             <img src="back1.png" className='home-btn'/>
+  //           </div>
             
-          </div>
-          <div className='logo-content'>
-            <img src="coachella-logo.png" className='logo-img'/>
-          </div>
-          <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout</button></div>
-        </div>
-      </div>
-      <div className='main-content'>
-         <Account address={ address } connected={ address }></Account> 
-      </div>
-      <div className='footer'>
-        <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
-      </div>
-    </div>
-    </>
+  //         </div>
+  //         <div className='logo-content'>
+  //           <img src="coachella-logo.png" className='logo-img'/>
+  //         </div>
+  //         <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout</button></div>
+  //       </div>
+  //     </div>
+  //     <div className='main-content'>
+  //        <Account address={ address } connected={ address }></Account> 
+  //     </div>
+  //     <div className='footer'>
+  //       <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
+  //     </div>
+  //   </div>
+  //   </>
   
     
 
