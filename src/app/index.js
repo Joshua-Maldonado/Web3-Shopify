@@ -46,7 +46,7 @@ function Page() {
                     </div>
                     </div></>
      }
-  // if (!address) {
+  if (!address) {
     return <>
     <div className='body-section'>
       <div className='page-header'>
@@ -59,15 +59,17 @@ function Page() {
       <div className='main-content'>
         <div className='index-section'>
         <div className="product-container burn-container">
+        <h1 className='heading-text h1'>CLAIM CLOSED</h1>
             <div className="split-parent">
                 <div className="split-child img-split">
                     <img src="65c27bea440ff1e38cec8388_Coachella2019_W1_300118-p-1600.jpg"  /> 
                 </div>
                 <div className="split-child connect-pg">
+                  
                   <h2 className='heading-text h2'>Coachella Throwback Merchandise Trunk</h2>
                   <p className='paragraph welcome'>The redemption window for the Coachella Throwback Merchandise Trunk NFT has closed. Please reach out to <Link href={`mailto:innovation@coachella.com`}>innovation@coachella.com</Link> for support.</p>
                   
-                  {/* <button className="cta button login-button" onClick={login}>Login</button> */}
+                   <button className="cta button login-button" onClick={login}>Login</button> 
                 </div>
             </div> 
         </div>
@@ -81,31 +83,31 @@ function Page() {
   </>
   
   
- // }
-  // return <>
-  //      <div className='body-section'>
-  //     <div className='page-header'>
-  //       <div className='header-content'>
-  //         <div id="home-button" className='home-button-parent'>
-  //           <div className='png-wrapper'>
-  //             <img src="back1.png" className='home-btn'/>
-  //           </div>
+ }
+  return <>
+       <div className='body-section'>
+      <div className='page-header'>
+        <div className='header-content'>
+          <div id="home-button" className='home-button-parent'>
+            <div className='png-wrapper'>
+              <img src="back1.png" className='home-btn'/>
+            </div>
             
-  //         </div>
-  //         <div className='logo-content'>
-  //           <img src="coachella-logo.png" className='logo-img'/>
-  //         </div>
-  //         <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout</button></div>
-  //       </div>
-  //     </div>
-  //     <div className='main-content'>
-  //        <Account address={ address } connected={ address }></Account> 
-  //     </div>
-  //     <div className='footer'>
-  //       <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
-  //     </div>
-  //   </div>
-  //   </>
+          </div>
+          <div className='logo-content'>
+            <img src="coachella-logo.png" className='logo-img'/>
+          </div>
+          <div className='wallet-button connected'><button className="cta button" onClick={logout}>Logout</button></div>
+        </div>
+      </div>
+      <div className='main-content'>
+         <Account address={ address } connected={ address }></Account> 
+      </div>
+      <div className='footer'>
+        <p className='footer-text'>Web3 & verification by Top Drawer Merch</p>
+      </div>
+    </div>
+    </>
   
     
 

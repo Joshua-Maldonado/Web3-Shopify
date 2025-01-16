@@ -786,6 +786,11 @@ h2.heading-text.h2.below {
 p.paragraph.welcome.last {
   margin-left: 0;
 }
+h1.heading-text.h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
 @media screen and (max-width: 769px) {
   div#home-button {
     position: absolute;
