@@ -14,7 +14,7 @@ export default function ProductPage3Burn(props) {
   useEffect(()=> {
     // DONT FORGET TO SWITCH CHAIN!!!
     // Fuji id: 43113     Main-net id: 43114
-    switchChainAsync({chainId: 43114})
+    switchChainAsync({chainId: 43113})
   },[
 
   ])
